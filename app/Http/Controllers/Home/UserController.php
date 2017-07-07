@@ -16,39 +16,7 @@ class UserController extends Controller{
     public function login(){
         return view('Home.login');
     }
-    //注册添加用户
-    public function register(Request $request){
-        try{
-            $data = [];
-            $data['user_name'] = trim($request->input('user_name', ''));
-            $data['account'] = trim($request->input('account', ''));
-            $data['password'] = trim($request->input('password', ''));
-            $res = application()->userApi->register($data);
-            if(!empty($res)){
-                return $this->response();
-            }else{
-                return $this->error(ApiException::REGISTER_FAIL);
-            }
-        }catch(\Exception $e){
-            return $this->resException($e);
-        }
 
-    }
-
-    //注册时验证手机号唯一性
-    public function verrifyPhone(Request $request){
-        try{
-            $phone = trim($request->input('phone', ''));
-            $res = application()->userApi->verifyPhone($phone);
-            if(!empty($res)){
-                return $this->response();
-            }else{
-                return $this->error(ApiException::ACCOUNT_EXISTS);
-            }
-        }catch(\Exception $e){
-            return $this->resException($e);
-        }
-    }
 
     public function submitLogin(Request $request){
         try{
@@ -67,19 +35,4 @@ class UserController extends Controller{
         }
     }
 
-    public function resetPwd(Request $request){
-        try{
-            $data = [];
-            $data['account'] = trim($request->input('account', ''));
-            $data['password'] = trim($request->input('password', ''));
-            $res = application()->userApi->resetPwd($data);
-            if($res['code'] == 1000){
-                return $this->response();
-            }else{
-                return $this->error($res['code']);
-            }
-        }catch(\Exception $e){
-            return $this->resException($e);
-        }
-    }
 }

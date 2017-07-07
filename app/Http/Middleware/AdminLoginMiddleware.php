@@ -11,7 +11,7 @@ namespace App\Http\Middleware;
 use App\Exceptions\ApiException;
 use Closure;
 
-class LoginMiddleware
+class AdminLoginMiddleware
 {
     /**
      * Handle an incoming request.
@@ -22,15 +22,11 @@ class LoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $token = $request->cookie('user_token');
-//        $token = \Cookie::get('user_token');
-        if(!empty($token)){
-            $user_info = application()->redis->get('user_info_'.$token);
-            if(!empty($user_info)){
-                return $next($request);
-            }
+        // 判断是否有session
+        if (session_status() == PHP_SESSION_NONE) session_start();
+        if(empty($_SESSION['user_info'])){
+            return view('Admin.login');
         }
-//        ApiException::throwException(ApiException::PLEASE_RELOGIN);
-        return view('Home.login');
+        return $next($request);
     }
 }

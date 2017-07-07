@@ -19,6 +19,7 @@ use Predis\Client;
  * @package App
  * @property Client redis
  * @property UserApi userApi
+ * @property OperationApi operationApi
  */
 class Application extends \Laravel\Lumen\Application {
 

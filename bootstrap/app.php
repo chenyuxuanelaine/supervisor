@@ -76,7 +76,8 @@ $app->singleton(
 
 $app->routeMiddleware([
 //    'auth' => App\Http\Middleware\Authenticate::class,
-    'loginLimmit' => App\Http\Middleware\LoginMiddleware::class,
+    'HomeLogin' => App\Http\Middleware\HomeLoginMiddleware::class,
+    'AdminLogin' => App\Http\Middleware\AdminLoginMiddleware::class,
 ]);
 
 /*
