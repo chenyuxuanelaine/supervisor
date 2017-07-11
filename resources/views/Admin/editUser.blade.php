@@ -18,25 +18,26 @@
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
             <form class="form-horizontal" role="form">
+                <input type="hidden" name="user_id" value="{{$list['id']}}">
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><font><font class=""> 用户名 </font></font></label>
                     <div class="col-sm-9">
-                        <input type="text" name="user_name" id="form-field-1" placeholder="user_name" class="col-xs-10 col-sm-5">
+                        <input type="text" name="user_name" id="form-field-1" placeholder="user_name" class="col-xs-10 col-sm-5" value="{{$list['user_name']}}">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"><font><font class=""> 密码 </font></font></label>
-                    <div class="col-sm-9">
-                        <input type="password" name="password" id="form-field-2" placeholder="password" class="col-xs-10 col-sm-5">
-                    </div>
-                </div>
+                {{--<div class="form-group">--}}
+                    {{--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"><font><font class=""> 密码 </font></font></label>--}}
+                    {{--<div class="col-sm-9">--}}
+                        {{--<input type="text" name="password" id="form-field-2" placeholder="password" class="col-xs-10 col-sm-5" value="{{$list['password']}}">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="form-group">
                     <div class="col-sm-3 control-label no-padding-right">
                         <button class="btn btn-small btn-primary" type="button" id="privilege" onclick="selPrivilege('/')">+分配权限</button>
                     </div>
                     <div class="col-sm-9">
-                        <input type="text" name="file" placeholder="select-file" class="col-xs-10 col-sm-5" style="height:40px;margin-top:8px;" value=""><br><br>
+                        <input type="text" name="file" placeholder="select-file" class="col-xs-10 col-sm-5" style="height:40px;margin-top:8px;" value="{{$list['privilege']}}"><br><br>
                     </div>
                     <div id="ceng">
                     </div>
@@ -187,31 +188,16 @@
 
         $('#btn-submit').on('click', function () {
             var user_name = $('input[name="user_name"]').val();
-            var password = $('input[name="password"]').val();
+//            var password = $('input[name="password"]').val();
             var file = $('input[name="file"]').val();
-            if(user_name == '' || password == '' || file == ''){
+            var user_id = $('input[name="user_id"]').val();
+            if(user_name == '' || file == ''){
                 alert('请填写完整');
                 return false;
             }
-            var through = 1;
-            $.ajax({
-                url:'{{route('verifyName')}}',
-                type:'post',
-                data:{'user_name':user_name},
-                async:false,
-                success:function (result) {
-                    if(result.code != 1000){
-                        alert(result.msg);
-                        through = 0;
-                    }
-                }
-            });
-            if(through == 0){
-                return false;
-            }
-            var data = {'user_name':user_name, 'password':password, 'privilege':file};
+            var data = {'user_name':user_name, 'privilege':file, 'id':user_id};
             console.log(data);
-            var url = '{{route('addUser')}}';
+            var url = '{{route('editUser')}}';
             $.ajax({
                 url:url,
                 type:'post',
@@ -219,7 +205,7 @@
                 success:function (result) {
                     console.log(result);
                     if(result.code == 1000){
-                        alert('添加成功');
+                        alert('修改成功');
                         window.location.href='{{route('AdminIndex')}}';
                     }else{
                         alert(result.msg);

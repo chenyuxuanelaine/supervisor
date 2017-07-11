@@ -61,7 +61,7 @@
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
-                                                <a href="{{route('editUser', ['id'=>$item['id']])}}">
+                                                <a href="{{route('editUserForm', ['id'=>$item['id']])}}">
                                                     <button class="btn btn-xs btn-info">
                                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                     </button>

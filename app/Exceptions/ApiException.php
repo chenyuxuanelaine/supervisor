@@ -33,7 +33,7 @@ class ApiException extends \Exception
         self::DATA_INSERT_ERROR => '数据添加失败',
         self::NAME_EXISTS => '数据已存在',
         self::REGISTER_FAIL => '注册失败',
-        self::ACCOUNT_EXISTS => '用户手机号已存在',
+        self::ACCOUNT_EXISTS => '用户已存在',
         self::LOGIN_FAIL => '登录失败',
         self::PLEASE_RELOGIN => '您的登录已经失效, 请重新登录',
         self::RESET_PASSWORD_FAIL =>'密码重置失败',

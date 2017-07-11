@@ -36,8 +36,10 @@ $app->group(['namespace' => 'Admin'], function () use ($app) {
 
 $app->group(['namespace' => 'Admin', 'middleware'=>'AdminLogin'], function () use ($app) {
     $app->get('admin/operation/index',['as'=>'AdminIndex', 'uses'=>'OperationController@index']);
-    $app->get('admin/operation/editUser',['as'=>'editUser', 'uses'=>'OperationController@editUser']);
+    $app->get('admin/operation/editUserForm',['as'=>'editUserForm', 'uses'=>'OperationController@editUser']);
+    $app->post('admin/operation/editUser',['as'=>'editUser', 'uses'=>'OperationController@editUser']);
     $app->get('admin/operation/addUserForm',['as'=>'addUserForm', 'uses'=>'OperationController@addUser']);
     $app->post('admin/operation/addUser',['as'=>'addUser', 'uses'=>'OperationController@addUser']);
     $app->get('admin/operation/getFile',['as'=>'getFile', 'uses'=>'OperationController@getFile']);
+    $app->post('admin/operation/verifyName',['as'=>'verifyName', 'uses'=>'OperationController@verifyName']);
 });
