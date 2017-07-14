@@ -23,6 +23,8 @@ $app->group(['namespace' => 'Home'], function () use ($app) {
 //主页
 $app->group(['namespace' => 'Home', 'middleware'=>'HomeLogin'], function () use ($app) {
     $app->get('/',['as'=>'index', 'uses'=>'IndexController@index']);
+    $app->get('home/user/getDirectory',['as'=>'getDirectory', 'uses'=>'IndexController@getDirectory']);
+    $app->get('home/user/delFile',['as'=>'delFile', 'uses'=>'IndexController@delFile']);
 });
 
 

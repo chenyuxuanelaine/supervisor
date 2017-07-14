@@ -1,20 +1,16 @@
+@extends('Home.basic_page')
+@section('title', '欢迎访问')
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>欢迎访问</title>
-</head>
+@section('page_css')
+    <style>
 
-<body>
+    </style>
 
-<div class="container">
+@endsection
+
+@section('content')
     <h1 style="color:blue;">欢迎访问</h1>
-    <table class="table table-striped table-hover table-condensed" >
+    <table id="table-view" class="table table-striped table-hover table-condensed">
         <thead>
         <tr>
             <th>
@@ -22,57 +18,116 @@
                 文件名
             </th>
             <th>
-                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                上次更新时间</th>
-            <th>
                 <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
                 操作
             </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody-view">
         <tr>
             <td>
-                <a herf="#" style="cursor:pointer;">file1</a>
+                {{--                <a herf="#" style="cursor:pointer;">{{$list['privilege']}}</a>--}}
+                <a herf="#" style="cursor:pointer;">{{$list['privilege']}}</a>
             </td>
-            <td>2017-06-23 15:27:00</td>
             <td>
-                <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a herf="#" style="cursor:pointer;">file2</a>
-            </td>
-            <td>2017-06-23 15:27:00</td>
-            <td>
-                <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a herf="#" style="cursor:pointer;">file3</a>
-            </td>
-            <td>2017-06-23 15:27:00</td>
-            <td>
-                <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a>
+                {{--<a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a>--}}
+                <a href="#" class="del"> 删除</a>
             </td>
         </tr>
         </tbody>
+
     </table>
-</div>
+@endsection
 
-<!-- <div id="footer">
-    <a target="_blank" href="http://www.163.com/">网易首页</a>
-    <a target="_blank" href="/.help/index.html">使用帮助</a>
-    <a href="mailto:mirror@service.netease.com">联系我们</a>
-    <a target="_blank" href="http://corp.163.com/eng/about/overview.html">About NetEase</a>
-</div> -->
+@section('js')
+        <script type="text/javascript">
+            var last_file_name = '';
+            //监听弹层table双击事件
+            $('#table-view').on('dblclick','#tbody-view tr', function () {
+//        clearTimeout(timer);
+                console.log($(this).children(":first-child"));
+                var txt = $(this).children(":first-child").text().trim();
+                alert(txt);
+                if(txt == '..'){
+                    //回到上一级目录
+                alert(last_file_name);
+                //如果last_file_name是等于'{{$list['privilege']}}',那就不能再返回到上一级，因为没有权限
+                    if(last_file_name == '{{$list['privilege']}}'){
+                        var htmlTxt = '<tr><td><a href="#">{{$list['privilege']}}</a></td><td><a href="#" class="del">删除</a></td></tr>';
+                        $('#tbody-view').html(htmlTxt);
+                    }else{
+                        var reg = /^.*\//;
+                        var res = last_file_name.match(reg);
+//                alert(typeof(res));//obj
+                        var str = JSON.stringify(res);
+                        str = str.replace('["','');
+                        var num = str.match(/[\/]/g).length;
+                        alert(num);
+                        if(num == 1){
+                            str = str.replace('"]','');
+                        }else{
+                            str = str.replace('/"]','');
+                        }
+                        alert(str);
+                        getFile(str);
+                    }
+                }else{
+                    getFile(txt);
+                }
+            });
 
-</body>
-<script>
-    $(function(){
+            //      获取文件的ajax
+            function getFile(file_name) {
+                $.ajax({
+                    url:'{{route('getDirectory')}}',
+                    type:'get',
+                    data:{'file_name':file_name},
+                    success:function (result) {
+                        console.log(result);
+                        if(result.code == 1000){
+                            console.log(result.data);
+                            //展示根目录
+                            var data = result.data;
+                            var htmlView = '';
+                            if(file_name == '/'){
+                                file_name = '';
+                            }else{
+                                last_file_name = file_name;
+                            }
+                            for(var i in data){
+                                if(data[i] == '.'){
+                                    continue;
+                                }
+                                if(data[i] == '..'){
+                                    htmlView += '<tr><td colspan="2"><a href="#">'+data[i]+'</a></td></tr>';
+                                }else{
+                                    htmlView += '<tr><td><a href="#">'+file_name+'/'+data[i]+'</a></td><td><a href="#" class="del">删除</a></td></tr>';
+                                }
+                            }
+                            $('#tbody-view').html(htmlView);
+                        }else{
+                            alert(result.msg);
+//                        alert('网络问题，请重试');
+                        }
+                    }
+                });
+            }
 
-    });
-</script>
-</html>
+            $('#table-view').on('click','.del', function () {
+                var txt = $(this).parent().prev().text().trim();
+                alert(txt);
+                delFile(txt);
+            });
+            function delFile(file_name) {
+                $.ajax({
+                    url:'{{route('delFile')}}',
+                    type:'get',
+                    data:{'file_name':file_name},
+                    success:function (result) {
+
+                    }
+                })
+            }
+    </script>
+@endsection
+

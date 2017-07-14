@@ -171,7 +171,6 @@
 //                alert(typeof(res));//obj
                 var str = JSON.stringify(res);
                 str = str.replace('["','');
-                str = str.replace('"]','');
                 var num = str.match(/[\/]/g).length;
                 if(num == 1){
                     str = str.replace('"]','');

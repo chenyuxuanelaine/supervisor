@@ -24,6 +24,7 @@ class ApiException extends \Exception
     const LOGIN_FAIL = 10009;
     const PLEASE_RELOGIN = 10010;
     const RESET_PASSWORD_FAIL = 10011;
+    const NO_PRIVILEGE = 20000;
     const FAIL = 99999;
 
     public static $errorMessages = [
@@ -37,6 +38,7 @@ class ApiException extends \Exception
         self::LOGIN_FAIL => '登录失败',
         self::PLEASE_RELOGIN => '您的登录已经失效, 请重新登录',
         self::RESET_PASSWORD_FAIL =>'密码重置失败',
+        self::NO_PRIVILEGE =>'没有权限',
         self::FAIL =>'操作失败',
     ];
 

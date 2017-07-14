@@ -63,8 +63,24 @@ class OperationApi{
         if($file_name == '/'){
             $command = 'ls '.$file_name;
         }
-        exec($command, $arr);
-        return $arr;
+        exec($command, $arr, $status);
+        //$status，0成功，1失败
+        if($status == 0){
+            return $arr;
+        }else{
+            return [];
+        }
+    }
+
+    public function delFile($file_name){
+        $command = 'rm -rf ' . $file_name;
+        system($command, $status);
+        //$status，0成功，1失败
+        if($status == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function verifyName($name){

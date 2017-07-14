@@ -102,7 +102,7 @@ class OperationController extends Controller{
 
     public function getFile(Request $request){
         try{
-            $file_name = $request->input('file_name', '');
+            $file_name = trim($request->input('file_name', ''));
             $res = application()->operationApi->getFile($file_name);
             if(!empty($res)){
                 return $this->response($res);

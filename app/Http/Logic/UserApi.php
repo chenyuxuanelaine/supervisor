@@ -74,4 +74,9 @@ class UserApi{
 //        ];
     }
 
+    public function getPrivilege($id){
+        $res = UserModel::select('privilege')->where('id', $id)->first();
+        return empty($res)?'':$res->toArray();
+    }
+
 }
