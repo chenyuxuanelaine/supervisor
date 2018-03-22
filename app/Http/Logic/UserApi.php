@@ -49,9 +49,6 @@ class UserApi{
         $user_info = json_encode($user_info);
         application()->redis->setnx('user_token_'.$res['id'], $new_token);
         application()->redis->setnx('user_info_'.$new_token, $user_info);
-//        $to = application()->redis->get('user_token_'.$res['id']);
-//        $info = application()->redis->get('user_info_'.$new_token);
-//        Log::getLogger()->info(0, 'cookie', [$to,$info]);
         if($data['is_checked'] == 1){
             //将token保存七天有效期,生成cookie
             $response = new \Illuminate\Http\Response();
@@ -67,11 +64,6 @@ class UserApi{
             return $response;
 //            \Cookie::queue('user_token', $new_token, 3600 * 24);
         }
-
-//        return [
-//            'code'=>ApiException::GOD_BLESS_YOU,
-//            'msg'=>'登录成功'
-//        ];
     }
 
     public function getPrivilege($id){

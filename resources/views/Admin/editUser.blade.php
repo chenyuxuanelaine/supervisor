@@ -25,12 +25,6 @@
                         <input type="text" name="user_name" id="form-field-1" placeholder="user_name" class="col-xs-10 col-sm-5" value="{{$list['user_name']}}">
                     </div>
                 </div>
-                {{--<div class="form-group">--}}
-                    {{--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"><font><font class=""> 密码 </font></font></label>--}}
-                    {{--<div class="col-sm-9">--}}
-                        {{--<input type="text" name="password" id="form-field-2" placeholder="password" class="col-xs-10 col-sm-5" value="{{$list['password']}}">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
 
                 <div class="form-group">
                     <div class="col-sm-3 control-label no-padding-right">

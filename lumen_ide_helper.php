@@ -3288,7 +3288,7 @@ namespace {
         /**
          * Adds a log record at an arbitrary level.
          * 
-         * This method allows for compatibility with common interfaces.
+         * This method allows for compatibility with Common interfaces.
          *
          * @param mixed $level The log level
          * @param string $message The log message
@@ -3303,7 +3303,7 @@ namespace {
         /**
          * Adds a log record at the WARNING level.
          * 
-         * This method allows for compatibility with common interfaces.
+         * This method allows for compatibility with Common interfaces.
          *
          * @param string $message The log message
          * @param array $context The log context
@@ -3317,7 +3317,7 @@ namespace {
         /**
          * Adds a log record at the ERROR level.
          * 
-         * This method allows for compatibility with common interfaces.
+         * This method allows for compatibility with Common interfaces.
          *
          * @param string $message The log message
          * @param array $context The log context
@@ -3331,7 +3331,7 @@ namespace {
         /**
          * Adds a log record at the CRITICAL level.
          * 
-         * This method allows for compatibility with common interfaces.
+         * This method allows for compatibility with Common interfaces.
          *
          * @param string $message The log message
          * @param array $context The log context
@@ -3345,7 +3345,7 @@ namespace {
         /**
          * Adds a log record at the EMERGENCY level.
          * 
-         * This method allows for compatibility with common interfaces.
+         * This method allows for compatibility with Common interfaces.
          *
          * @param string $message The log message
          * @param array $context The log context
@@ -5402,7 +5402,7 @@ namespace {
          * Returns true if the request is a XMLHttpRequest.
          * 
          * It works if your JavaScript library sets an X-Requested-With HTTP header.
-         * It is known to work with common JavaScript frameworks:
+         * It is known to work with Common JavaScript frameworks:
          *
          * @link http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
          * @return bool true if the request is an XMLHttpRequest, false otherwise

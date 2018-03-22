@@ -2414,7 +2414,7 @@ AWS.Message =
 			// 给首页通知box内label添加未读消息数量
 			$("#index_notification").fadeIn().find('[name=notification_unread_num]').html(G_UNREAD_NOTIFICATION);
 
-			$('#index_notification ul#notification_list').html('<p align="center" style="padding: 15px 0"><img src="' + G_STATIC_URL + '/common/loading_b.gif"/></p>');
+			$('#index_notification ul#notification_list').html('<p align="center" style="padding: 15px 0"><img src="' + G_STATIC_URL + '/Common/loading_b.gif"/></p>');
 
 			$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__page-0', function (result)
 			{

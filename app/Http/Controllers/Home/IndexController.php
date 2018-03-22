@@ -47,12 +47,11 @@ class IndexController extends Controller{
         try{
             $file_name = trim($request->input('file_name', ''));
             $res = application()->operationApi->delFile($file_name);
-            var_dump($res);
-//            if(!empty($res)){
-//                return $this->response($res);
-//            }else{
-//                return $this->error(ApiException::FAIL,'最后一级目录');
-//            }
+            if(!empty($res)){
+                return $this->response($res);
+            }else{
+                return $this->error(ApiException::FAIL,'删除失败');
+            }
         }catch(\Exception $e){
             return $this->resException($e);
         }

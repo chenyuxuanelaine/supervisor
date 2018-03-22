@@ -354,7 +354,7 @@
 		}
 	}
 
-	// Some shorthands for common methods to save bytes
+	// Some shorthands for Common methods to save bytes
 	var extend = CKEDITOR.tools.extend,
 		newElement = CKEDITOR.dom.element,
 		newElementFromHtml = newElement.createFromHtml,

@@ -9,7 +9,7 @@ $(function()
 
 		$('#aw-search-type').html($(this).text());
 
-		$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+		$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/Common/loading_b.gif" alt="" /></p>');
 
 		$('#search_result_more').attr('data-page', 1).click();
 	});

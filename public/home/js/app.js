@@ -32,9 +32,9 @@ $(document).ready(function ()
     }
 
     //文章列表样式调整
-    if ($('.aw-common-list').length)
+    if ($('.aw-Common-list').length)
     {
-        $.each($('.aw-common-list .aw-item.article'), function (i, e)
+        $.each($('.aw-Common-list .aw-item.article'), function (i, e)
         {
             if ($(this).find('.all-content img').length >= 1)
             {

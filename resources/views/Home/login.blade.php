@@ -28,6 +28,12 @@
     <script type="text/javascript" src="../../../home/js/respond.js"></script>
     <![endif]-->
     <style type="text/css">.fancybox-margin{margin-right:17px;}</style>
+    <style type="text/css">
+        .user-error, .pwd-error{
+            color:red;
+            font-size:12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,10 +53,14 @@
                 <h2 style="font-size:20px;color:lightblue;">文件管理</h2>
                 <form>
                     <ul>
-                        <li>
-                            <input type="text" name="user_name" placeholder="用户名" class="form-control" id="aw-login-user-name"></li>
-                        <li>
-                            <input type="password" name="password" placeholder="密码" class="form-control" id="aw-login-user-password"></li>
+                        <li style="line-height:12px;">
+                            <input type="text" name="user_name" placeholder="用户名" class="form-control" id="aw-login-user-name">
+                            <span class="user-error"></span>
+                        </li>
+                        <li style="line-height:12px;">
+                            <input type="password" name="password" placeholder="密码" class="form-control" id="aw-login-user-password">
+                            <span class="pwd-error"></span>
+                        </li>
                         <li class="alert alert-danger hide error_message"> <i class="icon icon-delete"></i> <em></em>
                         </li>
                         <li class="last">
@@ -70,48 +80,76 @@
         </div>
     </div>
 </div>
+
+@include('Common.message_box')
+
 <script>
-        //登录
-        $('#login_submit').on('click', function () {
-            dosubmit();
-        });
-
-        $("body").keydown(function(event) {
-            if (event.keyCode == 13) {
-                dosubmit();
-            }
-        });
-
-        function dosubmit() {
-            var name = $('#aw-login-user-name').val();
-            var pwd = $('#aw-login-user-password').val();
-            var is_checked = 0;//是否选中记住我
-            if($('#remember').is(':checked')){
-                is_checked = 1;
-            }
-            if(name == '' || pwd == ''){
-                alert('请输入用户名或密码');
-                return false;
-            }
-            var item = {'user_name':name, 'password':pwd, 'is_checked':is_checked};
-            console.log(item);
-            $.ajax({
-                url:'{{route('submitlogin')}}',
-                data:item,
-                type:'post',
-                success:function (res) {
-//                console.log(res);
-                    //判断是否为json格式的对象
-                    var isjson = typeof(res) == "object" && Object.prototype.toString.call(res).toLowerCase() == "[object object]" && !res.length;
-                    if(isjson){
-                        alert(res.msg);
-                    }else{
-                        alert('登录成功');
-                        location.href = '{{route('index')}}';
-                    }
-                }
-            });
+    var isChecked = false;
+    //监听input框
+    $('body').on('blur', '#aw-login-user-name', function () {
+        if($(this).val() === ''){
+            $('.user-error').text('用户名不能为空');
+        }else{
+            $('.user-error').text('');
+            isChecked = true;
         }
+    });
+
+    $('body').on('blur', '#aw-login-user-password', function () {
+        if($(this).val() === ''){
+            $('.pwd-error').text('密码不能为空');
+        }else{
+            $('.pwd-error').text('');
+            isChecked = true;
+        }
+    });
+
+
+    $("body").keydown(function(event) {
+        if (event.keyCode == 13) {
+            dosubmit();
+        }
+    });
+
+
+    //登录
+    $('#login_submit').on('click', function () {
+        dosubmit();
+    });
+
+
+    function dosubmit() {
+        var name = $('#aw-login-user-name').val();
+        var pwd = $('#aw-login-user-password').val();
+        if(name == '' || pwd == '' || !isChecked){
+            $('.msg-box-content .error-txt').text('用户名或密码不允许为空');
+            $('.msg-box').css('display', 'table');
+            return false;
+        }
+
+        var is_checked = 0;//是否选中记住我
+        if($('#remember').is(':checked')){
+            is_checked = 1;
+        }
+
+        var item = {'user_name':name, 'password':pwd, 'is_checked':is_checked};
+        $.ajax({
+            url:'{{route('submitlogin')}}',
+            data:item,
+            type:'post',
+            success:function (res) {
+                //判断是否为json格式的对象
+                var isjson = typeof(res) == "object" && Object.prototype.toString.call(res).toLowerCase() == "[object object]" && !res.length;
+                if(isjson){
+                    $('.msg-box-content .error-txt').text(res.msg);
+                    $('.msg-box').css('display', 'table');
+                }else{
+                    location.href = '{{route('index')}}';
+                }
+            }
+        });
+    }
+
 </script>
 
 </body>

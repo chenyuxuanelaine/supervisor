@@ -1,17 +1,8 @@
 <?php
 namespace App;
 
-use App\Http\Logic\Idl\MessageApi;
-use App\Http\Logic\Idl\QuestionItemApi;
-use App\Http\Logic\Idl\WindfallApi;
-use App\Http\Logic\Idl\WordsApi;
-use App\Http\Logic\PermissionsApi;
-use App\Http\Logic\LoginApi;
-use App\Http\Logic\Idl\TagsApi;
-use App\Http\Logic\Idl\OperationApi;
-use App\Http\Logic\Idl\ConstellationApi;
-use App\Http\Logic\Idl\QuestionApi;
-use App\Rpc\Service\Common\CommonServiceClient;
+use App\Http\Logic\UserApi;
+use App\Http\Logic\OperationApi;
 use Predis\Client;
 
 /**

@@ -18,7 +18,7 @@ $(function()
 
 			$('#main_title').html($(this).html()).find('i').detach();
 
-			$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+			$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/Common/loading_b.gif" alt="" /></p>');
 
 			$('#bp_more').attr('data-page', 0).click();
 
@@ -154,7 +154,7 @@ function welcome_step(step)
 		break;
 
 		case '2':
-			$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+			$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/Common/loading_b.gif" alt="" /></p>');
 
 			$('.aw-first-login').hide().siblings().eq(1).show();
 
@@ -164,7 +164,7 @@ function welcome_step(step)
 		break;
 
 		case '3':
-			$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+			$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/Common/loading_b.gif" alt="" /></p>');
 
 			$('.aw-first-login').hide().siblings().eq(2).show();
 
@@ -185,7 +185,7 @@ function welcome_step(step)
 
 function reload_list()
 {	
-	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/Common/loading_b.gif" alt="" /></p>');
 
 	$('#bp_more').attr('data-page', 0).click();
 }
