@@ -13,8 +13,12 @@
         background-color:#ffffff;
         width:380px;
         height:200px;
-        position: relative;
-        margin: 200px auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        /*margin-left: -190px;*/
+        /*margin-top: -100px;*/
+        transform: translate(-50%, -50%); /*对IE浏览要求9以上，推荐使用这种方法*/
         border-radius: 2px;
         box-shadow: 0 1px 3px rgba(0,0,0,.3);
         box-sizing: border-box;
